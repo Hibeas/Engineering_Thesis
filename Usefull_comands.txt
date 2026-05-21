@@ -1,0 +1,10 @@
+# Jak podłączyć sie do naszej serwerowej kafki i minaio
+# Dobrze że tu jesteś już tłumacze :
+
+# 1. Wejdź w powershell i jebnij to polecenie  ssh -L 8080:localhost:8080 -L 8081:localhost:8081 -L 9005:localhost:9005 -L 8085:localhost:8085 sskarbek@153.19.52.9
+# NIE BĄDŹ DEBILEM ZMIEŃ SSKARBEK NA WŁASNY LOGIN BO INACZEJ SS PO CIEBIE PRZYJDĄ
+
+# 2. Wejdź na przeglądarke (opera GX Goat) i wjeb http://localhost:8085 - to jest Kafka, twórz osobne topic by nie mylić sie i nie usuwaj nic czego nie stworzyłeś
+
+# 3. Wejdź na przeglądarke i dej http://localhost:8080/browser/bronze - MinaIO login : admin hasło : password123 (wiem bezpieczeństwo przede wszystkim) - ustawione usuwanie starszych plików od 1 dnia
+

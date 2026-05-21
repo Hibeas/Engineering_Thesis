@@ -1,0 +1,12 @@
+Models:
+
+Face Landmarker
+    Pretrained Model by Google Mediapipe. It allows us to get:
+        - 478 Landmarks - which are points of x, y and z coordnates from your face
+        - 52 Face Blandshapes - based on the movment of those points, the model scores from 0.0 to 1.0 of 52 diffrent facial expressions. 
+          These blendshapes conform to the FACS (Facial Action Coding System) standard, which is widely used in 3D character animation (like Metahumans in Unreal Engine) and sentiment analysis
+    
+    More info and download: https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker
+
+
+
