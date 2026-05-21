@@ -6,7 +6,7 @@ from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
 # Setup MediaPipe
-base_options = python.BaseOptions(model_asset_path='face_landmarker.task')
+base_options = python.BaseOptions(model_asset_path='./Models/face_landmarker.task')
 options = vision.FaceLandmarkerOptions(
     base_options=base_options,
     output_face_blendshapes=True,
@@ -14,9 +14,13 @@ options = vision.FaceLandmarkerOptions(
 )
 detector = vision.FaceLandmarker.create_from_options(options)
 
-# Configuration
-DATASET_DIR = r"C:\Users\Hibeas\Desktop\project_ai\My_Model\fan\fane_data" 
-OUTPUT_CSV = "FAN_blendshapes.csv"
+# Configuration - FANE Model 3
+#DATASET_DIR = r"C:\Users\Hibeas\Desktop\project_ai\My_Model\fan\fane_data" 
+#OUTPUT_CSV = "./Models/Training/FAN_blendshapes.csv"
+
+# Configuration - AffectNet Model 1
+DATASET_DIR = r"C:\Users\Hibeas\archive\images" 
+OUTPUT_CSV = "./Models/Training/AffectNet_blendshapes.csv"
 
 # Predefined order of all 52 shapes to guarantee index consistency
 BLENDSHAPE_NAMES = [
