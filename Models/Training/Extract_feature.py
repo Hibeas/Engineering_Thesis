@@ -5,6 +5,13 @@ import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+# ======================================================================
+# File: Models/Training/Extract_feature.py
+# Description: Walk dataset folders, run MediaPipe to extract blendshape
+#              features for each image, and write ordered CSV rows for
+#              model training input.
+# ======================================================================
+
 # Setup MediaPipe
 base_options = python.BaseOptions(model_asset_path='./Models/face_landmarker.task')
 options = vision.FaceLandmarkerOptions(

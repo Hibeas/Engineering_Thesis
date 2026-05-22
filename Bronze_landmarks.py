@@ -9,11 +9,18 @@ import os
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+# ======================================================================
+# File: Bronze_landmarks.py
+# Description: Capture webcam frames, extract face landmarks and blendshapes
+#              using MediaPipe, upload video segments to MinIO, and publish
+#              blendshape/landmark events to Kafka `face-landmarks`.
+# ======================================================================
 
 # ==============================================================================
 # --- 1. CONFIGURATION ---
 # ==============================================================================
 STUDENT_ID = "Szymon Skarbek"
+
 
 KAFKA_SERVER = 'localhost:8081'
 MINIO_URL = 'http://localhost:9005'

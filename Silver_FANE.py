@@ -6,9 +6,15 @@ import torch.nn.functional as F
 import os
 from confluent_kafka import Consumer, Producer
 
-# ==============================================================================
+# ======================================================================
+# File: Silver_FANE.py
+# Description: Load FANE model weights, perform real-time inference on
+#              blendshape vectors from Kafka and publish emotion events.
+# ======================================================================
+
+# ======================================================================
 # --- 1. CONFIGURATION ---
-# ==============================================================================
+# ======================================================================
 CHOSEN_MODEL_FILE = './Models/FANE__emotion_model.pth'
 
 KAFKA_SERVER = 'localhost:8081'

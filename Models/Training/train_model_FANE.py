@@ -8,6 +8,14 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report
 
 # ==============================================================================
+
+# ======================================================================
+# File: Models/Training/train_model_FANE.py
+# Description: Train the FANE emotion classifier from blendshape CSV data
+#              and export a PyTorch checkpoint for inference consumption.
+# ======================================================================
+
+# ======================================================================
 # --- 1. CONFIGURATION & DATA CLEANING ---
 # ==============================================================================
 INPUT_CSV = './Models/Training/FANE_blendshapes.csv'            # Your generated raw FANE CSV file

@@ -2,9 +2,16 @@ import json
 import time
 from confluent_kafka import Consumer, Producer
 
-# ==============================================================================
+# ======================================================================
+# File: Silver_calculating.py
+# Description: Consume blendshape events from Kafka, compute rule-based
+#              expert emotion scores, and publish structured emotion payloads.
+# ======================================================================
+
+
+# ======================================================================
 # --- 1. CONFIGURATION ---
-# ==============================================================================
+# ======================================================================
 KAFKA_SERVER = 'localhost:8081'
 INPUT_TOPIC = 'face-landmarks'
 OUTPUT_TOPIC = 'face-emotions'

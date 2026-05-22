@@ -9,9 +9,12 @@ Face Landmarker
     More info and download: https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker
 
 AffectNet Blandshapes:
-
+    Model was trained on the AffectNet blendshapes dataset over 100 epochs using a standard PyTorch neural network with a hidden layer 
+    structure of 128 → 64 units.
 
 Fane Emotion Model:
+    Model was trained over 300 epochs on a high-resolution, cleaned subset of the FANE dataset, where noisy and overlapping classes 
+    (like shy, confused, and fear) were removed and the network layout was widened to 256 → 128 units for better feature extraction.
 
 
 

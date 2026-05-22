@@ -7,7 +7,14 @@ import os
 import numpy as np
 from confluent_kafka import Consumer, Producer
 
-# ==============================================================================
+
+# ======================================================================
+# File: Silver_AffectNet.py
+# Description: Load AffectNet model weights, perform inference on normalized
+#              landmarks or blendshapes from Kafka and publish emotion events.
+# ======================================================================
+
+# ======================================================================
 # --- 1. CONFIGURATION ---
 # ==============================================================================
 CHOSEN_MODEL_FILE = './Models/kaggle_landmarks_emotion_model.pth' # Your trained Model 1 file
