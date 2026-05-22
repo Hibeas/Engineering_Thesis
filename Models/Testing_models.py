@@ -5,23 +5,21 @@ import torch.nn as nn
 import torch.nn.functional as F
 import urllib.request
 import mediapipe as mp
-import urllib.request
+from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
-
-# ==============================================================================
-# --- 1. CONFIGURATION ---
-# ==============================================================================
-# Toggle this path to test either your Model 1 or Model 3 checkpoint file
-CHOSEN_MODEL_PATH = './Models/FANE__emotion_model.pth' 
 # ======================================================================
 # File: Models/Testing_models.py
 # Description: Local test harness for running a chosen emotion model live
 #              with MediaPipe face landmarker and an on-screen HUD for debug.
 # ======================================================================
 
-# ======================================================================
+
+# ==============================================================================
 # --- 1. CONFIGURATION ---
-# ======================================================================
+# ==============================================================================
+# Toggle this path to test either your Model 1 or Model 3 checkpoint file
+CHOSEN_MODEL_PATH = './Models/FANE__emotion_model.pth' 
+
 TASK_FILE_URL = "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task"
 TASK_FILE_PATH = "face_landmarker.task"
 
