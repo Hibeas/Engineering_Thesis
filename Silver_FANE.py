@@ -9,7 +9,7 @@ from confluent_kafka import Consumer, Producer
 # ==============================================================================
 # --- 1. CONFIGURATION ---
 # ==============================================================================
-CHOSEN_MODEL_FILE = './Models/FANE_cleaned_emotion_model.pth' # Your optimized Model 3 file
+CHOSEN_MODEL_FILE = './Models/FANE__emotion_model.pth'
 
 KAFKA_SERVER = 'localhost:8081'
 INPUT_TOPIC = 'face-landmarks'
@@ -48,9 +48,9 @@ class FaneCleanedEmotionClassifier(nn.Module):
         return self.network(x)
 
 # Load checkpoint and verify file validity
-print(f"🔄 Initializing Neural Network using Model 3 (FANE Cleaned) weights: {CHOSEN_MODEL_FILE}...")
+print(f"Initializing Neural Network using Model 3 (FANE Cleaned) weights: {CHOSEN_MODEL_FILE}...")
 if not os.path.exists(CHOSEN_MODEL_FILE):
-    print(f"❌ Critical Error: Weights file '{CHOSEN_MODEL_FILE}' not found!")
+    print(f"Critical Error: Weights file '{CHOSEN_MODEL_FILE}' not found!")
     exit(1)
 
 checkpoint = torch.load(CHOSEN_MODEL_FILE)
@@ -64,7 +64,7 @@ ml_model.eval()
 
 # Maps internal text classes safely (Forces uppercase representation for the Silver payload)
 LABEL_CLEANER = {lbl: lbl.replace('face_', '').upper() for lbl in EMOTION_LABELS}
-print(f"✅ Model 3 Ready! Active tracking targets: {[LABEL_CLEANER[l] for l in EMOTION_LABELS]}")
+print(f"Model 3 ready. Active tracking targets: {[LABEL_CLEANER[l] for l in EMOTION_LABELS]}")
 
 # ==============================================================================
 # --- 3. INFRASTRUCTURE INITIALIZATION (KAFKA COUPLING) ---
@@ -83,13 +83,13 @@ producer = Producer(producer_conf)
 
 def delivery_report(err, msg):
     if err is not None:
-        print(f"❌ Kafka Streaming Delivery failed: {err}")
+        print(f"Kafka Streaming delivery failed: {err}")
 
 # ==============================================================================
 # --- 4. STREAM PROCESSING LOOP ---
 # ==============================================================================
-print(f"🚀 Real-Time FANE Model 3 Silver Engine Online.")
-print(f"📥 Reading: {INPUT_TOPIC} | 📤 Writing: {OUTPUT_TOPIC}\n")
+print(f"Real-Time FANE Model 3 Silver Engine Online.")
+print(f"Reading: {INPUT_TOPIC} | Writing: {OUTPUT_TOPIC}\n")
 
 try:
     while True:

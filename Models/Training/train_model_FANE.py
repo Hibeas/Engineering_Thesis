@@ -2,12 +2,10 @@ import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report
 
 # ==============================================================================
 # --- 1. CONFIGURATION & DATA CLEANING ---
@@ -18,16 +16,16 @@ MODEL_SAVE_PATH = './Models/FANE__emotion_model.pth'
 # Define only the 6 core high-activation classes (Stripping 'shy', 'confused', 'fear')
 ALLOWED_EMOTIONS = ['happy', 'neutral', 'sad', 'surprise', 'angry', 'disgust']
 
-print(f"🔄 Loading feature data from: {INPUT_CSV}...")
+print(f"Loading feature data from: {INPUT_CSV}...")
 if not os.path.exists(INPUT_CSV):
     raise FileNotFoundError(f"Could not find '{INPUT_CSV}'. Ensure it is in this directory.")
 
 df_raw = pd.read_csv(INPUT_CSV)
-print(f"📊 Original dataset size: {df_raw.shape[0]} rows.")
+print(f"Original dataset size: {df_raw.shape[0]} rows.")
 
 # Step A: Filter out weak, overlapping classes
 df_clean = df_raw[df_raw['label'].isin(ALLOWED_EMOTIONS)].reset_index(drop=True)
-print(f"🧹 Cleaned dataset size (6 core emotions): {df_clean.shape[0]} rows.")
+print(f"Cleaned dataset size (6 core emotions): {df_clean.shape[0]} rows.")
 
 # Step B: Split features (X) and text targets (y)
 X = df_clean.drop(columns=['label']).values  # Shape: (N, 52)
@@ -37,7 +35,7 @@ y_text = df_clean['label'].values
 encoder = LabelEncoder()
 y_encoded = encoder.fit_transform(y_text)
 num_classes = len(encoder.classes_)
-print(f"🏷️ Encoded target classes: {encoder.classes_.tolist()}")
+print(f"Encoded target classes: {encoder.classes_.tolist()}")
 
 # Step D: Train/Test Split (80% Train, 20% Evaluation)
 X_train, X_test, y_train, y_test = train_test_split(
@@ -78,7 +76,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 epochs = 300
 
-print("\n🚀 Commencing Model 3 Training Pipeline...")
+print("\nCommencing Model 3 training pipeline...")
 model.train()
 
 for epoch in range(epochs):
@@ -116,7 +114,7 @@ with torch.no_grad():
     predicted_labels = encoder.inverse_transform(predicted_test.numpy())
     
     print("\n" + "="*60)
-    print("📋 MODEL 3 FINAL CLASSIFICATION REPORT")
+    print("MODEL 3 FINAL CLASSIFICATION REPORT")
     print("="*60)
     print(classification_report(y_test_labels, predicted_labels, digits=4))
     print("="*60)
@@ -132,4 +130,4 @@ torch.save({
     'input_dim': 52
 }, MODEL_SAVE_PATH)
 
-print(f"\n💾 Optimization complete! Weights safely stored to: '{MODEL_SAVE_PATH}'\n")
+print(f"\nOptimization complete! Weights safely stored to: '{MODEL_SAVE_PATH}'\n")

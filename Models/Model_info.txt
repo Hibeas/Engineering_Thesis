@@ -8,7 +8,10 @@ Face Landmarker
     
     More info and download: https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker
 
+AffectNet Blandshapes:
 
+
+Fane Emotion Model:
 
 
 

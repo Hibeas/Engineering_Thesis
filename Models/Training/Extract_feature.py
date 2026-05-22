@@ -19,7 +19,7 @@ detector = vision.FaceLandmarker.create_from_options(options)
 #OUTPUT_CSV = "./Models/Training/FANE_blendshapes.csv"
 
 # Configuration - AffectNet Model 1
-DATASET_DIR = r"C:\Users\Hibeas\archive\images" 
+DATASET_DIR = r"C:\Users\Hibeas\archive\images"
 OUTPUT_CSV = "./Models/Training/AffectNet_blendshapes.csv"
 
 # Predefined order of all 52 shapes to guarantee index consistency

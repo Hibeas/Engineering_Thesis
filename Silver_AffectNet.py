@@ -96,13 +96,13 @@ producer = Producer(producer_conf)
 
 def delivery_report(err, msg):
     if err is not None:
-        print(f"Kafka Streaming Delivery failed: {err}")
+        print(f"Kafka Streaming delivery failed: {err}")
 
 # ==============================================================================
 # --- 5. PROCESSING PIPELINE ---
 # ==============================================================================
-print(f"🚀 Real-Time Landmark Silver Engine Online.")
-print(f"📥 Reading: {INPUT_TOPIC} | 📤 Writing: {OUTPUT_TOPIC}\n")
+print(f"Real-Time Landmark Silver Engine Online.")
+print(f"Reading: {INPUT_TOPIC} | Writing: {OUTPUT_TOPIC}\n")
 
 try:
     while True:

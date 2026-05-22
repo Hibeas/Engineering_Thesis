@@ -63,7 +63,7 @@ def get_expert_emotions(bs):
     return {k: round(max(0, v), 2) for k, v in e.items()}
 
 print(f"Expert Silver Layer started.")
-print(f"Reading: {INPUT_TOPIC} | 📤 Writing: {OUTPUT_TOPIC}")
+print(f"Reading: {INPUT_TOPIC} | Writing: {OUTPUT_TOPIC}")
 
 try:
     while True:
@@ -75,18 +75,18 @@ try:
             continue
 
         try:
-            # 1. Dekodowanie danych z Bronze Layer
+            # 1. Decode data from Bronze Layer
             data = json.loads(msg.value().decode('utf-8'))
             bs = data.get('blendshapes', {})
             
             if not bs:
                 continue
 
-            # 2. Obliczanie emocji
+            # 2. Calculate emotions
             emotions = get_expert_emotions(bs)
             dominant = max(emotions, key=emotions.get)
             
-            # 3. Przygotowanie paczki Silver
+            # 3. Prepare Silver payload
             silver_payload = {
                 "student_id": data.get("student_id", "unknown"),
                 "ts": int(data.get("ts", time.time()) * 1000),
@@ -95,7 +95,7 @@ try:
                 "confidence": emotions[dominant]
             }
 
-            # 4. Wysłanie z powrotem do Kafka (Topic: face-emotions)
+            # 4. Send back to Kafka (Topic: face-emotions)
             producer.produce(
                 OUTPUT_TOPIC, 
                 json.dumps(silver_payload).encode('utf-8'),
@@ -103,7 +103,7 @@ try:
             )
             producer.poll(0) # Triggers callbacks
 
-            # Logowanie do konsoli dla Ciebie
+            # Console logging
             if emotions[dominant] > 0.25:
                 print(f"Sent: {dominant} ({emotions[dominant]})")
             else:

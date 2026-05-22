@@ -4,8 +4,11 @@ Training data we used:
         FANE is an image dataset for classifying facial expressions and emotion from images in the wild. 
         There are nine classes in the dataset (angry, confused, disgust, fear, happy, neutral, sad, shy, surprise)
         There are 16,913 images in total.
-        https://www.kaggle.com/datasets/furcifer/fane-facial-expressions-and-emotion-dataset?select=fane_data
+        More info and download: https://www.kaggle.com/datasets/furcifer/fane-facial-expressions-and-emotion-dataset?select=fane_data
     
     AffectNet:
-    https://www.kaggle.com/datasets/fatihkgg/affectnet-yolo-format
+        AffectNet: A Database for Facial Expression, Valence, and Arousal Computing in the Wild - http://mohammadmahoor.com/affectnet/
+        The dataset we use is an edited version of AffectNet -  resolution was reduced down to 96x96 and edited image names and corresponding 
+        txt files with annotations, such as 0- Anger, 1- Contempt, 2- Disgust, 3- Fear, 4- Happy, 5- Neutral, 6- Sad, 7- Surprise
+        More info and download: https://www.kaggle.com/datasets/fatihkgg/affectnet-yolo-format
 

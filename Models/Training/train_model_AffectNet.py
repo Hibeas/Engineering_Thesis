@@ -13,12 +13,12 @@ from sklearn.metrics import classification_report
 INPUT_CSV = './Models/Training/AffectNet_blendshapes.csv'       # Your baseline Blendshapes dataset
 MODEL_SAVE_PATH = './Models/AffectNet_blendshapes.pth'     # Target weights file name
 
-print(f"🔄 Loading baseline features from: {INPUT_CSV}...")
+print(f"Loading baseline features from: {INPUT_CSV}...")
 if not os.path.exists(INPUT_CSV):
     raise FileNotFoundError(f"Could not find '{INPUT_CSV}'. Ensure it is in your root directory.")
 
 df = pd.read_csv(INPUT_CSV)
-print(f"📊 Dataset successfully parsed: {df.shape[0]} rows containing {df.shape[1] - 1} features.")
+print(f"Dataset successfully parsed: {df.shape[0]} rows containing {df.shape[1] - 1} features.")
 
 # Split features (X) and textual classes (y)
 X = df.drop(columns=['label']).values          # Extracted 52 MediaPipe blendshape channels
@@ -28,7 +28,7 @@ y_text = df['label'].values
 encoder = LabelEncoder()
 y_encoded = encoder.fit_transform(y_text)
 num_classes = len(encoder.classes_)
-print(f"🏷️ Target categories mapped ({num_classes}): {encoder.classes_.tolist()}")
+print(f"Target categories mapped ({num_classes}): {encoder.classes_.tolist()}")
 
 # Train/Test Split (80% Training pool, 20% validation pool)
 X_train, X_test, y_train, y_test = train_test_split(
@@ -69,7 +69,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 epochs = 100
 
-print("\n🚀 Starting Model 1 Benchmark Training...")
+print("\nStarting Model 1 benchmark training...")
 model.train()
 
 for epoch in range(epochs):
@@ -105,7 +105,7 @@ with torch.no_grad():
     predicted_labels = encoder.inverse_transform(predicted_test.numpy())
     
     print("\n" + "="*60)
-    print("📋 MODEL 1 INITIAL CLASSIFICATION REPORT")
+    print("MODEL 1 INITIAL CLASSIFICATION REPORT")
     print("="*60)
     print(classification_report(y_test_labels, predicted_labels, digits=4))
     print("="*60)
@@ -121,4 +121,4 @@ torch.save({
     'input_dim': 52
 }, MODEL_SAVE_PATH)
 
-print(f"\n💾 Validation complete. Model 1 weights saved to: '{MODEL_SAVE_PATH}'\n")
+print(f"\nValidation complete. Model 1 weights saved to: '{MODEL_SAVE_PATH}'\n")

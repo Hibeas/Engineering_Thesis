@@ -58,7 +58,7 @@ def upload_video_segment(file_path, filename):
 cap = cv2.VideoCapture(0)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
-print("Uruchamianie kamery z obsługą Blendshapes... 'q' aby wyjść.")
+print("Starting camera with Blendshapes support... press 'q' to quit.")
 
 try:
     while cap.isOpened():
@@ -103,7 +103,7 @@ try:
                 smile = blendshapes_data.get('mouthSmileLeft', 0)
                 cv2.putText(frame, f"SMILE: {int(smile*100)}%", (20, 50), 2, 1, (0,255,0), 2)
 
-            cv2.imshow('Ingest z Blendshapes', frame)
+            cv2.imshow('Blendshape Ingest', frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 cap.release()
                 out.release()
