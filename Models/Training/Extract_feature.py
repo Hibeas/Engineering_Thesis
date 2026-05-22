@@ -16,7 +16,7 @@ detector = vision.FaceLandmarker.create_from_options(options)
 
 # Configuration - FANE Model 3
 #DATASET_DIR = r"C:\Users\Hibeas\Desktop\project_ai\My_Model\fan\fane_data" 
-#OUTPUT_CSV = "./Models/Training/FAN_blendshapes.csv"
+#OUTPUT_CSV = "./Models/Training/FANE_blendshapes.csv"
 
 # Configuration - AffectNet Model 1
 DATASET_DIR = r"C:\Users\Hibeas\archive\images" 

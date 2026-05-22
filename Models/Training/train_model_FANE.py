@@ -12,8 +12,8 @@ from sklearn.metrics import classification_report, confusion_matrix
 # ==============================================================================
 # --- 1. CONFIGURATION & DATA CLEANING ---
 # ==============================================================================
-INPUT_CSV = 'FAN_blendshapes.csv'            # Your generated raw FANE CSV file
-MODEL_SAVE_PATH = 'FANE_cleaned_emotion_model.pth'
+INPUT_CSV = './Models/Training/FANE_blendshapes.csv'            # Your generated raw FANE CSV file
+MODEL_SAVE_PATH = './Models/FANE__emotion_model.pth'
 
 # Define only the 6 core high-activation classes (Stripping 'shy', 'confused', 'fear')
 ALLOWED_EMOTIONS = ['happy', 'neutral', 'sad', 'surprise', 'angry', 'disgust']

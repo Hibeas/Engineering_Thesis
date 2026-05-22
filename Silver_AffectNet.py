@@ -60,9 +60,9 @@ class LandmarksEmotionClassifier(nn.Module):
         return self.network(x)
 
 # Load checkpoint and extract dimensions dynamically
-print(f"🔄 Initializing Neural Network using Landmark weights: {CHOSEN_MODEL_FILE}...")
+print(f"Initializing Neural Network using Landmark weights: {CHOSEN_MODEL_FILE}...")
 if not os.path.exists(CHOSEN_MODEL_FILE):
-    print(f"❌ Critical Error: Model file '{CHOSEN_MODEL_FILE}' not found!")
+    print(f"Critical Error: Model file '{CHOSEN_MODEL_FILE}' not found!")
     exit(1)
 
 checkpoint = torch.load(CHOSEN_MODEL_FILE)
@@ -77,7 +77,7 @@ ml_model.eval()
 
 # Clean up raw labels (e.g., 'face_happy' -> 'HAPPY')
 LABEL_CLEANER = {lbl: lbl.replace('face_', '').upper() for lbl in EMOTION_LABELS}
-print(f"✅ Model 1 Ready! Target classes: {[LABEL_CLEANER[l] for l in EMOTION_LABELS]}")
+print(f"Model 1 Ready! Target classes: {[LABEL_CLEANER[l] for l in EMOTION_LABELS]}")
 
 # ==============================================================================
 # --- 4. INFRASTRUCTURE INITIALIZATION (KAFKA COUPLING) ---
@@ -96,7 +96,7 @@ producer = Producer(producer_conf)
 
 def delivery_report(err, msg):
     if err is not None:
-        print(f"❌ Kafka Streaming Delivery failed: {err}")
+        print(f"Kafka Streaming Delivery failed: {err}")
 
 # ==============================================================================
 # --- 5. PROCESSING PIPELINE ---

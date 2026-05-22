@@ -2,19 +2,19 @@ import json
 import time
 from confluent_kafka import Consumer, Producer
 
-# --- KONFIGURACJA ---
+# ==============================================================================
+# --- 1. CONFIGURATION ---
+# ==============================================================================
 KAFKA_SERVER = 'localhost:8081'
 INPUT_TOPIC = 'face-landmarks'
 OUTPUT_TOPIC = 'face-emotions'
 
-# Config dla Konsumenta (odczyt Bronze)
 consumer_conf = {
     'bootstrap.servers': KAFKA_SERVER,
     'group.id': 'silver-expert-v2',
-    'auto.offset.reset': 'earliest' # Start from beginning if new group
+    'auto.offset.reset': 'earliest'
 }
 
-# Config dla Producenta (zapis Silver)
 producer_conf = {
     'bootstrap.servers': KAFKA_SERVER
 }
@@ -23,46 +23,47 @@ consumer = Consumer(consumer_conf)
 consumer.subscribe([INPUT_TOPIC])
 producer = Producer(producer_conf)
 
+
 def delivery_report(err, msg):
     if err is not None:
-        print(f"❌ Delivery failed: {err}")
+        print(f"Delivery failed: {err}")
 
 def get_expert_emotions(bs):
     """
-    Zaawansowana ekstrakcja oparta na Action Units (FACS).
+    Calculate expert emotions based on blendshapes.
     """
     e = {}
 
-    # 1. RADOŚĆ (Duchenne Smile)
+    # HAPPY
     smile = (bs.get('mouthSmileLeft', 0) + bs.get('mouthSmileRight', 0)) / 2
     squint = (bs.get('cheekSquintLeft', 0) + bs.get('cheekSquintRight', 0)) / 2
     e['HAPPY'] = (smile * 0.7) + (squint * 0.3)
 
-    # 2. SMUTEK
+    # SADNESS
     brow_up = bs.get('browInnerUp', 0)
     frown = (bs.get('mouthFrownLeft', 0) + bs.get('mouthFrownRight', 0)) / 2
     e['SAD'] = (brow_up * 0.6) + (frown * 0.4)
 
-    # 3. ZŁOŚĆ / FRUSTRACJA
+    # ANGER
     brows_down = (bs.get('browDownLeft', 0) + bs.get('browDownRight', 0)) / 2
     m_press = (bs.get('mouthPressLeft', 0) + bs.get('mouthPressRight', 0)) / 2
     e['ANGRY'] = (brows_down * 0.5) + (m_press * 0.3) + (bs.get('noseSneerLeft', 0) * 0.2)
 
-    # 4. ZASKOCZENIE
+    # SURPRISE
     jaw = bs.get('jawOpen', 0)
     eyes_wide = (bs.get('eyeWideLeft', 0) + bs.get('eyeWideRight', 0)) / 2
     e['SURPRISE'] = (jaw * 0.5) + (eyes_wide * 0.5)
 
-    # 5. POGARDA / SCEPTYCYZM
+    # CONTEMPT
     e['CONTEMPT'] = abs(bs.get('mouthSmileLeft', 0) - bs.get('mouthSmileRight', 0))
 
-    # 6. SKUPIENIE
+    # FOCUS
     e['FOCUS'] = (bs.get('eyeSquintLeft', 0) + bs.get('eyeSquintRight', 0)) / 2 - (smile * 0.5)
     
     return {k: round(max(0, v), 2) for k, v in e.items()}
 
-print(f"🚀 Expert Silver Layer started.")
-print(f"📥 Reading: {INPUT_TOPIC} | 📤 Writing: {OUTPUT_TOPIC}")
+print(f"Expert Silver Layer started.")
+print(f"Reading: {INPUT_TOPIC} | 📤 Writing: {OUTPUT_TOPIC}")
 
 try:
     while True:

@@ -9,20 +9,22 @@ import os
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+
+# ==============================================================================
+# --- 1. CONFIGURATION ---
+# ==============================================================================
 STUDENT_ID = "Szymon Skarbek"
 
 KAFKA_SERVER = 'localhost:8081'
 MINIO_URL = 'http://localhost:9005'
-
 MINIO_ACCESS_KEY = 'admin'
 MINIO_SECRET_KEY = 'password123'
 BUCKET_NAME = "bronze"
 SEGMENT_DURATION = 20 
-MODEL_PATH = './Models/face_landmarker.task'
 
-# --- NEW CONFIGURATION CONSTANT ---
+MODEL_PATH = './Models/face_landmarker.task'
 TEMP_DIR = "./temp_videos" 
-os.makedirs(TEMP_DIR, exist_ok=True) # Ensures the folder exists before writing to it
+os.makedirs(TEMP_DIR, exist_ok=True)
 
 
 # Landmark initialization
@@ -34,7 +36,7 @@ options = vision.FaceLandmarkerOptions(
     num_faces=1)
 detector = vision.FaceLandmarker.create_from_options(options)
 
-# Inicjalizacja reszty
+
 s3_client = boto3.client('s3', endpoint_url=MINIO_URL, 
                         aws_access_key_id=MINIO_ACCESS_KEY, 
                         aws_secret_access_key=MINIO_SECRET_KEY)
@@ -52,7 +54,7 @@ def upload_video_segment(file_path, filename):
     except Exception as e: 
         print(f"S3 Error: {e}")
 
-# --- PĘTLA GŁÓWNA ---
+
 cap = cv2.VideoCapture(0)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 
@@ -63,7 +65,6 @@ try:
         timestamp = int(time.time())
         filename = f"vid_{timestamp}.avi"
         
-        # --- UPDATED PATH PLACEMENT ---
         local_path = os.path.join(TEMP_DIR, f"temp_{filename}")
         
         out = cv2.VideoWriter(local_path, fourcc, 20.0, (640, 480))
@@ -75,12 +76,10 @@ try:
             if not ret: break
             
             out.write(frame)
-            
-            # Przetwarzanie obrazu dla MediaPipe
+
             rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
             
-            # Detekcja (Nowy sposób)
             detection_result = detector.detect(mp_image)
             
             blendshapes_data = {}
@@ -112,8 +111,6 @@ try:
                 os._exit(0)
 
         out.release()
-        
-        # Spawning the upload thread
         threading.Thread(target=upload_video_segment, args=(local_path, filename)).start()
 
 except Exception as e:
