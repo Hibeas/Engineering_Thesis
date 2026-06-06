@@ -98,7 +98,7 @@ try:
                 
                 data = {
                     "student_id": STUDENT_ID,
-                    "ts": time.time(),
+                    "ts": time.time()*1000,
                     "landmarks": coords,
                     "blendshapes": blendshapes_data
                 }
