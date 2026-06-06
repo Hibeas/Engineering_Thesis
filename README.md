@@ -1,3 +1,7 @@
+# Fast Start
+
+Connect to server and just run main.py that's it.
+
 # Real-Time Student Emotion Monitoring Infrastructure
 
 A decoupled, real-time data streaming platform designed to capture facial expressions, extract normalized geometric blendshapes, and process emotional states during laboratory sessions. This project serves as an engineering thesis implementation utilizing an enterprise-grade Data Lakehouse architecture (Bronze to Silver layers) powered by Apache Kafka, Google MediaPipe, and PyTorch.
